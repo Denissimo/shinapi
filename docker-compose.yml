@@ -1,5 +1,5 @@
 # Версия docker-compose
-version: '3'
+version: '2'
 # Список наших сервисов (контейнеров)
 services:
   nginx:
@@ -26,3 +26,12 @@ services:
     # монтируем директорию с проектами
     volumes:
       - ./www:/var/www
+  mysql:
+    image: mysql:8
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql:/var/lib/mysql
+    # задаем пароль для root пользователя
+    environment:
+      MYSQL_ROOT_PASSWORD: secret

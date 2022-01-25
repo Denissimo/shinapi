@@ -1,5 +1,9 @@
 # Для начала указываем исходный образ, он будет использован как основа
+FROM composer:latest AS composer
 FROM php:8-fpm
+
+COPY --from=composer /usr/bin/composer /usr/bin/composer
+
 # Необязательная строка с указанием автора образа
 MAINTAINER PHPtoday.ru <info@phptoday.ru>
 

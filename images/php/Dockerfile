@@ -31,7 +31,6 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
     && docker-php-ext-configure gd \
     && docker-php-ext-install -j$(nproc) gd
-
 #     && docker-php-ext-install -j$(nproc) iconv mcrypt mbstring mysqli pdo_mysql zip \
     #RUN apt-get update \
 #  && apt-get install -y \
@@ -68,7 +67,6 @@ RUN apt-get update && apt-get install -y \
 #             libpq-dev \
 #        && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 #        && docker-php-ext-install -j$(nproc) gd
-
 RUN docker-php-ext-configure intl --enable-intl && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd && \
@@ -79,16 +77,12 @@ RUN docker-php-ext-configure intl --enable-intl && \
         zip pcntl \
         exif opcache \
     && docker-php-source delete \
-
 # Куда же без composer'а.
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
 # Добавим свой php.ini, можем в нем определять свои значения конфига
 #ADD php.ini /usr/local/etc/php/conf.d/40-custom.ini
-
 # Указываем рабочую директорию для PHP
 WORKDIR /var/www
-
 # Запускаем контейнер
 # Из документации: The main purpose of a CMD is to provide defaults for an executing container. These defaults can include an executable,
 # or they can omit the executable, in which case you must specify an ENTRYPOINT instruction as well.

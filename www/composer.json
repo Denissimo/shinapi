@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.0",
+        "harmbandstra/swagger-ui-bundle": "^5.0",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.2",
         "sensio/framework-extra-bundle": "^6.1",
@@ -83,9 +84,11 @@
             "assets:install %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
+            "HarmBandstra\\SwaggerUiBundle\\Composer\\ScriptHandler::linkAssets",
             "@auto-scripts"
         ],
         "post-update-cmd": [
+            "HarmBandstra\\SwaggerUiBundle\\Composer\\ScriptHandler::linkAssets",
             "@auto-scripts"
         ]
     },

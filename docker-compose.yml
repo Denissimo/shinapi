@@ -23,19 +23,6 @@ services:
     container_name: shinapi_php
     # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
     build: ./images/php
-    # этот образ будет общаться с mysql
-#    links:
-#      - mysql
     # монтируем директорию с проектами
     volumes:
       - ./www:/var/www
-#  mysql:
-#    image: mysql:8
-#    container_name: shinapi_mysql
-#    ports:
-#      - "3306:3306"
-#    volumes:
-#      - ./mysql:/var/lib/mysql
-#    # задаем пароль для root пользователя
-#    environment:
-#      MYSQL_ROOT_PASSWORD: secret

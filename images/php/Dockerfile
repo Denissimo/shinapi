@@ -28,7 +28,7 @@ RUN apt-get update && apt-get install -y \
                  libzip-dev \
 #        libmcrypt-dev \
 #        libpng12-dev \
-    && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
+#    && docker-php-ext-install -j$(nproc) iconv mbstring mysqli pdo_mysql zip \
     && docker-php-ext-configure gd \
     && docker-php-ext-install -j$(nproc) gd
 #     && docker-php-ext-install -j$(nproc) iconv mcrypt mbstring mysqli pdo_mysql zip \
@@ -70,9 +70,10 @@ RUN apt-get update && apt-get install -y \
 RUN docker-php-ext-configure intl --enable-intl && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \
     docker-php-ext-install -j$(nproc) gd && \
-    docker-php-ext-install pdo \
+    docker-php-ext-install  \
+#          pdo \
 #        pgsql pdo_pgsql \
-        mysqli pdo_mysql \
+#        mysqli pdo_mysql \
         intl iconv mbstring \
         zip pcntl \
         exif opcache \

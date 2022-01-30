@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "48ef354048dff54a47b87253d47abe85",
+    "content-hash": "ef5bd70874eede49e0e4277aa469a1d1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -306,34 +306,34 @@
         },
         {
             "name": "harmbandstra/swagger-ui-bundle",
-            "version": "5.0.0",
+            "version": "4.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/harmbandstra/swagger-ui-bundle.git",
-                "reference": "5265366c5196d5348c65b2e7b0598df50bd8b1c3"
+                "reference": "563222f261bc170524d5150a6b1bf0a713fadebb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/harmbandstra/swagger-ui-bundle/zipball/5265366c5196d5348c65b2e7b0598df50bd8b1c3",
-                "reference": "5265366c5196d5348c65b2e7b0598df50bd8b1c3",
+                "url": "https://api.github.com/repos/harmbandstra/swagger-ui-bundle/zipball/563222f261bc170524d5150a6b1bf0a713fadebb",
+                "reference": "563222f261bc170524d5150a6b1bf0a713fadebb",
                 "shasum": ""
             },
             "require": {
                 "ext-json": "*",
-                "php": "^7.4 || ^8.0",
-                "swagger-api/swagger-ui": "^4.0",
-                "symfony/config": "^4.4|^5.0|^6.0",
-                "symfony/dependency-injection": "^4.4|^5.0|^6.0",
-                "symfony/framework-bundle": "^4.4|^5.0|^6.0",
-                "symfony/http-kernel": "^4.4|^5.0|^6.0",
-                "symfony/routing": "^4.4|^5.0|^6.0",
-                "symfony/yaml": "^4.4|^5.0|^6.0"
+                "php": "^7.2 || ^8.0",
+                "swagger-api/swagger-ui": "^3.0",
+                "symfony/config": "^4.0|^5.0",
+                "symfony/dependency-injection": "^4.0|^5.0",
+                "symfony/framework-bundle": "^4.0|^5.0",
+                "symfony/http-kernel": "^4.0|^5.0",
+                "symfony/routing": "^4.0|^5.0",
+                "symfony/yaml": "^4.0|^5.0"
             },
             "require-dev": {
-                "composer/composer": "^2.0.13",
-                "phpspec/prophecy": "^1.15",
-                "phpunit/phpunit": "^9.5",
-                "symfony/browser-kit": "^4.0|^5.0|^6.0"
+                "composer/composer": "^1.8",
+                "phpspec/prophecy": "^1.8",
+                "phpunit/phpunit": "^8.5",
+                "symfony/browser-kit": "^4.0|^5.0"
             },
             "type": "symfony-bundle",
             "autoload": {
@@ -361,9 +361,9 @@
             ],
             "support": {
                 "issues": "https://github.com/harmbandstra/swagger-ui-bundle/issues",
-                "source": "https://github.com/harmbandstra/swagger-ui-bundle/tree/5.0.0"
+                "source": "https://github.com/harmbandstra/swagger-ui-bundle/tree/4.5.0"
             },
-            "time": "2022-01-01T13:53:22+00:00"
+            "time": "2021-06-09T21:41:45+00:00"
         },
         {
             "name": "laminas/laminas-code",
@@ -1069,16 +1069,16 @@
         },
         {
             "name": "swagger-api/swagger-ui",
-            "version": "v4.4.0",
+            "version": "v3.52.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/swagger-api/swagger-ui.git",
-                "reference": "7a30200274d9f1a803bcdc493a5ef7ae2f172857"
+                "reference": "f1ad60dc92e7edb0898583e16c3e66fe3e9eada2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/7a30200274d9f1a803bcdc493a5ef7ae2f172857",
-                "reference": "7a30200274d9f1a803bcdc493a5ef7ae2f172857",
+                "url": "https://api.github.com/repos/swagger-api/swagger-ui/zipball/f1ad60dc92e7edb0898583e16c3e66fe3e9eada2",
+                "reference": "f1ad60dc92e7edb0898583e16c3e66fe3e9eada2",
                 "shasum": ""
             },
             "type": "library",
@@ -1124,9 +1124,9 @@
             ],
             "support": {
                 "issues": "https://github.com/swagger-api/swagger-ui/issues",
-                "source": "https://github.com/swagger-api/swagger-ui/tree/v4.4.0"
+                "source": "https://github.com/swagger-api/swagger-ui/tree/v3.52.5"
             },
-            "time": "2022-01-27T09:37:53+00:00"
+            "time": "2021-10-14T14:25:14+00:00"
         },
         {
             "name": "symfony/asset",

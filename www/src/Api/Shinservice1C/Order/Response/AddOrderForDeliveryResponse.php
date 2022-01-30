@@ -2,14 +2,12 @@
 
 namespace App\Api\Shinservice1C\Order\Response;
 
-use App\Entity\OrderForDelivery as OrderForDeliveryEntity;
 use DateTimeImmutable;
-use Ramsey\Uuid\Uuid;
 
 class AddOrderForDeliveryResponse
 {
     /**
-     * @var Uuid
+     * @var int
      */
     public $id;
 
@@ -21,11 +19,11 @@ class AddOrderForDeliveryResponse
     /**
      * AddUserDocumentResponse constructor.
      *
-     * @param OrderForDeliveryEntity $orderForDelivery
+     * @param array $orderForDelivery
      */
-    public function __construct(OrderForDeliveryEntity $orderForDelivery)
+    public function __construct(array $orderForDelivery)
     {
-        $this->id = $orderForDelivery->getId();
-        $this->createdAt = $orderForDelivery->getCreatedAt();
+        $this->id = $orderForDelivery['id'] ?? null;
+        $this->createdAt = $orderForDelivery['cretedAt'] ?? null;
     }
 }

@@ -5,24 +5,33 @@ namespace App\Api\Shinservice1C\Order;
 use App\Api\ApiResponse;
 use App\Api\Shinservice1C\Order\Request\LoadOrderForDeliveryRequest;
 use App\Api\Shinservice1C\Order\Response\LoadOrderForDeliveryResponse;
-use App\Api\EntityResponse;
 use App\Api\Shinservice1C\AbstractHandler;
-use App\Api\Validator\InstanceValidator;
-use App\Entity\OrderForDelivery;
 use Symfony\Component\HttpFoundation\Response;
 use Exception;
+use App\Api\EntityResponse;
 
 class LoadOrderForDeliveryHandler extends AbstractHandler
 {
     public function handle(LoadOrderForDeliveryRequest $request): Response
     {
         try {
-            /** @var OrderForDelivery|null $orderForDelivery */
-            $orderForDelivery = $this->entityManager->getRepository(OrderForDelivery::class)
-                ->find($request->id);
-            $this->instanceValidator->validateOrderForDelivery($request->id, $orderForDelivery);
+            $ordersForDelivery = (array)$this->client->sendJson(
+                'UploadOrderForDelivery',
+                null,
+                null,
+                ['DocumentNumber' => $request->id]
+            );
 
-            $loadOrderForDeliveryResponse = new LoadOrderForDeliveryResponse($orderForDelivery);
+//            $current = current($ordersForDelivery);
+//            var_dump($current->Марка);
+//            die;
+            $loadOrderForDeliveryResponse = array_map(
+                function ($orderForDelivery) {
+                    return new LoadOrderForDeliveryResponse($orderForDelivery);
+                },
+                $ordersForDelivery
+            );
+
 
             $response = new EntityResponse(
                 $loadOrderForDeliveryResponse,

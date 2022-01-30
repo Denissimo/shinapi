@@ -7,6 +7,7 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
+        "ext-json": "*",
         "doctrine/annotations": "^1.0",
         "harmbandstra/swagger-ui-bundle": "^4.4",
         "phpdocumentor/reflection-docblock": "^5.3",

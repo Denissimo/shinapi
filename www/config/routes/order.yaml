@@ -1,0 +1,9 @@
+order_for_delivery.add:
+  path: /order_for_delivery/add
+  controller: App\Controller\Shinservice1CController::addOrderForDelivery
+  methods: [POST]
+
+order_for_delivery.get:
+  path: /order_for_delivery/{id}
+  controller: App\Controller\Shinservice1CController::loadOrderForDelivery
+  methods: [GET]

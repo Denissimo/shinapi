@@ -2,36 +2,35 @@
 
 namespace App\Api\Shinservice1C;
 
-use App\Api\Validator\InstanceValidator;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Service\Client;
 
 abstract class AbstractHandler
 {
     /**
-     * @var EntityManagerInterface
+     * @var Client
      */
-    protected $entityManager;
+    protected $client;
 
     /**
-     * @var InstanceValidator
+     * @var string
      */
-    protected $instanceValidator;
+    private $apiUrl;
 
     /**
-     * LoadApplicationHandler constructor.
-     * @param EntityManagerInterface $entityManager
+     * @param Client $client
+     * @param string $apiUrl
      */
-    public function __construct(EntityManagerInterface $entityManager)
+    public function __construct(Client $client, string $apiUrl)
     {
-        $this->entityManager = $entityManager;
-        $this->instanceValidator = new InstanceValidator();
+        $this->client = $client;
+        $this->apiUrl = $apiUrl;
     }
 
     /**
-     * @return EntityManagerInterface
+     * @return string
      */
-    public function getEntityManager(): EntityManagerInterface
+    public function getApiUrl(): string
     {
-        return $this->entityManager;
+        return $this->apiUrl;
     }
 }

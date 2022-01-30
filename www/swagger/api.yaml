@@ -1,36 +1,64 @@
 openapi: 3.0.0
 
 info:
-  title: RED | Auth API
-  description: Auth API of RED Marketplace
+  title: Shinservice API
+  description: Methods PI of Shinservice
   version: 1.0.0
 
 servers:
-  - url: http://auth.red.localhost
+  - url: http://shinapi.localhost
     description: Localhost develop server
-  - url: https://red-auth.berlin.devsmart.ru
-    description: Berlin test server
-  - url: https://red-auth.seoul.devsmart.ru
-    description: Seoul test server
-  - url: https://red-auth.cairo.devsmart.ru
-    description: Cairo test server
-  - url: https://red-auth.ankara.devsmart.ru
-    description: Ankara test server
-  - url: https://red-auth.riga.devsmart.ru
-    description: Riga test server
+tags:
+  - name: Orders
+    description: Данные по индивидуальным заказам
+  - name: Sales
+    description: Данные по индивидуальным продажам
 
 paths:
-  /api/login_check:
+  /order_for_delivery/{id}:
+    get:
+      tags:
+        - "Orders"
+      summary: "Загрузка заказа по ID"
+      description: "Load order for delivery"
+      operationId: "Load order"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Order'
+        404:
+          $ref: '#/components/schemas/404'
+
+  /order_for_delivery/add:
     post:
-      summary: Авторизация
+      tags:
+        - "Orders"
+      summary: "Добавление заказа"
+      description: "Add order for delivery"
+      operationId: "Add order"
       requestBody:
-        required: true
-        description: A JSON object containing the login and password.
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LoginRequest'
-
+              type: object
+              properties:
+                data:
+                  type: array
+                  description: данные
+                  example: [ 1, 2 ]
+              required:
+                - residence
       responses:
         200:
           description: OK
@@ -39,149 +67,28 @@ paths:
               schema:
                 type: object
                 properties:
-                  token:
-                    $ref: '#/components/schemas/JwtToken'
-        204:
-          description: Successful response
-        401:
-          $ref: '#/components/schemas/401'
-
-  /api/user-info:
-    get:
-      summary: Информация о текущем пользователе
-      security:
-        - bearerAuth: []
-      responses:
-        200:
-          description: Successful response
-
-  /api/password/reset:
-    put:
-      summary: Сброс пароля по смс
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ResetPasswordRequest'
-      responses:
-        204:
-          description: Successful response
-        400:
-          $ref: '#/components/schemas/400'
-
-  /api/registration:
-    post:
-      summary: Регистрация
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RegistrationRequest'
-      responses:
-        204:
-          description: Successful response
-        400:
-          $ref: '#/components/schemas/400'
-
-  /api/sms_code/{type}:
-    post:
-      summary: Запрос смс-кода
-      parameters:
-        - in: path
-          name: type
-          schema:
-            type: string
-            enum: ['register', 'reset_password']
-          required: true
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SmsCodeRequest'
-      responses:
-        200:
-          description: Successful response
-          content:
-            application/json:
-              schema:
-                type: boolean
-        400:
-          $ref: '#/components/schemas/400'
+                  id:
+                    type: string
+                  createdAt:
+                    $ref: '#/components/schemas/DateTime'
+        404:
+          $ref: '#/components/schemas/404'
 
 components:
-  securitySchemes:
-    bearerAuth:
-      type: http
-      scheme: bearer
-      bearerFormat: JWT
-
   schemas:
-    Uuid:
-      type: string
-      format: uuid
-      example: "13e1848f-c452-46a4-afbc-2126f9994370"
-    JwtToken:
-      type: string
-      example: "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJpYXQiOjE2MDkyMzc4MDMsImV4cCI6MTYwOTI0MTQwMywicm9sZXMiOltdLCJ1c2VybmFtZSI6Ijc5OTk1NTUyMjExIn0.ELSaVMh34ULv8obBI43f_jE77bWbYIF8XmwklJH-smsev5rl-WAn9dDFuDtjo3n5UYkmUO7O2rpZhzSS6776wYwHmMDuUHf6mskruukM7oDnTaKt6jM6HmPKD0ynJwKyhqwBNbXnHnoPCv5kvqb_P_VFaZB1Xrt7jF1nicQ2JtXdg7UQpoifApPDEjUL0o9KNqu6OnBtJ_OJ8AA6WSu8P9q0zSXnlzPN23ucP3hiO9Xpi_3CAMXIq7I8f6aYDZ7dYxKaIpr78dvOMjSg6gmww5EeB7-d7v9lVQeRCq9ug-jJ8pSYM9ovg6xZ--J_x8jjlNblIiPll3VirQce8PWZEsYqOT5QPg4i03l3kEdvo8ysPtO7M8TYGYj5U38hdiLqS4I3tD5ZpU5isvpJGS_Zou7K5-Pq5Abcc9aAvdICQ4SlqsMHN48K6NPeqEweXHzLKz5Tk1FGoDcFr_SKntnl5SO_-TBJiAGQ6MbPkpiwdW2wHdHenWGf-EtVoO3UM-lt4N8bUj5YVuu9szZ1zk3YQVatRNhcsSKyH966tIoH2OBQnKQlBMZL1Ql-11kxhaXkGEuetrsDnaA9xY87-9akRTKrc6sI_VkFfNsbDXOL8NlSle0rSRnoaI0f-0dg3LArT3qk7D0Fi47WLVDyRXz8_lZRvOy8wzsIG2hQoFXhS-E"
-    LoginRequest:
-      type: object
-      properties:
-        username:
-          type: string
-          description: Телефон пользователя
-          example: "+79995552211"
-          pattern: '^\+7\d{10}$'
-          required: true
-        password:
-          type: string
-          description: пароль
-          example: "1234"
-          required: true
 
-    ResetPasswordRequest:
+    Order:
+      description: Заказ
       type: object
       properties:
-        phone:
+        mark:
           type: string
-          description: Телефон пользователя
-          example: "+79995552211"
-          pattern: '^\+7\d{10}$'
-          required: true
-        code:
+          description: Марка
+          example: "010352870089138621kXREs"
+        nomenclature:
           type: string
-          example: "1234"
-          pattern: '^\d{4}$'
-          description: Смс код подтверждения
-          required: true
-
-    RegistrationRequest:
-      type: object
-      properties:
-        phone:
-          type: string
-          description: Телефон пользователя
-          example: "+79995552211"
-          pattern: '^\+7\d{10}$'
-          required: true
-        code:
-          type: string
-          example: "1234"
-          pattern: '^\d{4}$'
-          description: Смс код подтверждения
-          required: true
-
-    SmsCodeRequest:
-      type: object
-      properties:
-        phone:
-          type: string
-          description: Phone
-          example: "+79995552211"
-          pattern: '^\+7\d{10}$'
-          required: false
+          description: Номенклатура
+          example: "MICH 285/30 ZR19 Pilot Super Sport ZP (94Y)"
 
     400:
       description: Bad request

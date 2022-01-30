@@ -27,4 +27,19 @@ class Shinservice1CController extends AbstractController
 
         return $handler->handle($loadOrderForDeliveryRequest);
     }
+
+    public function addSalesMark(Request $request, AddOrderForDeliveryHandler $handler): Response
+    {
+        $addOrderForDeliveryRequest = new AddOrderForDeliveryRequest($request);
+
+
+        return $handler->handle($addOrderForDeliveryRequest);
+    }
+
+    public function loadSalesMark(Request $request, LoadOrderForDeliveryHandler $handler): Response
+    {
+        $loadOrderForDeliveryRequest = new LoadOrderForDeliveryRequest($request);
+
+        return $handler->handle($loadOrderForDeliveryRequest);
+    }
 }

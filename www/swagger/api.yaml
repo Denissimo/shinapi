@@ -9,16 +9,16 @@ servers:
   - url: http://shinapi.localhost
     description: Localhost develop server
 tags:
-  - name: Orders
-    description: Данные по индивидуальным заказам
-  - name: Sales
-    description: Данные по индивидуальным продажам
+  - name: Order Marks
+    description: Данные по заказам
+  - name: Sales Marks
+    description: Данные по продажам
 
 paths:
   /order_for_delivery/{id}:
     get:
       tags:
-        - "Orders"
+        - "Order Marks"
       summary: "Загрузка заказа по ID"
       description: "Load order for delivery"
       operationId: "Load order"
@@ -36,14 +36,73 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Order'
+                  $ref: '#/components/schemas/Mark'
         404:
           $ref: '#/components/schemas/404'
 
   /order_for_delivery/add:
     post:
       tags:
-        - "Orders"
+        - "Order Marks"
+      summary: "Добавление заказа"
+      description: "Add order for delivery"
+      operationId: "Add order"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: array
+                  description: данные
+                  example: [ 1, 2 ]
+              required:
+                - residence
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                  createdAt:
+                    $ref: '#/components/schemas/DateTime'
+        404:
+          $ref: '#/components/schemas/404'
+
+  /sales_mark/{id}:
+    get:
+      tags:
+        - "Sales Marks"
+      summary: "Загрузка продажи по ID"
+      description: "Load sales marks"
+      operationId: "Load sales marks"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sales'
+        404:
+          $ref: '#/components/schemas/404'
+
+  /sales_mark/add:
+    post:
+      tags:
+        - "Sales Marks"
       summary: "Добавление заказа"
       description: "Add order for delivery"
       operationId: "Add order"
@@ -77,18 +136,35 @@ paths:
 components:
   schemas:
 
-    Order:
+    Mark:
       description: Заказ
       type: object
       properties:
-        mark:
+        Марка:
           type: string
           description: Марка
           example: "010352870089138621kXREs"
-        nomenclature:
+        Номерклатура:
           type: string
           description: Номенклатура
           example: "MICH 285/30 ZR19 Pilot Super Sport ZP (94Y)"
+
+    Sales:
+      description: Продажа
+      type: object
+      properties:
+        НомерДокументаРасхода:
+          type: string
+          description: Номер Документа Расхода
+          example: "010352870089138621kXREs"
+        Товары:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sales'
+        Марки:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sales'
 
     400:
       description: Bad request

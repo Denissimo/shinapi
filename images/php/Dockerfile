@@ -27,7 +27,9 @@ RUN apt-get update && apt-get install -y \
                  libxml2-dev \
                  libzip-dev \
     && docker-php-ext-configure gd \
-    && docker-php-ext-install -j$(nproc) gd
+    && docker-php-ext-install -j$(nproc) gd \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
 RUN docker-php-ext-configure intl --enable-intl && \
     docker-php-ext-configure gd --with-freetype --with-jpeg && \

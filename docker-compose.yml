@@ -17,6 +17,8 @@ services:
       - ./www:/var/www
       - ./logs:/var/log/nginx
     # nginx должен общаться с php контейнером
+    environment:
+      PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"
     links:
       - php
   php:
@@ -26,3 +28,4 @@ services:
     # монтируем директорию с проектами
     volumes:
       - ./www:/var/www
+      - ./images/php/:/usr/local/etc/php/conf.d/

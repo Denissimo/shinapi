@@ -22,9 +22,6 @@ class LoadOrderForDeliveryHandler extends AbstractHandler
                 ['DocumentNumber' => $request->id]
             );
 
-//            $current = current($ordersForDelivery);
-//            var_dump($current->Марка);
-//            die;
             $loadOrderForDeliveryResponse = array_map(
                 function ($orderForDelivery) {
                     return new LoadOrderForDeliveryResponse($orderForDelivery);

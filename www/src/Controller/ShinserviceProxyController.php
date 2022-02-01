@@ -1,0 +1,65 @@
+<?php
+
+namespace App\Controller;
+
+use App\Api\Shinservice1C\Order\LoadOrderForDeliveryHandler;
+use App\Api\Shinservice1C\Order\Request\AddOrderForDeliveryRequest;
+use App\Api\Shinservice1C\Order\AddOrderForDeliveryHandler;
+use App\Api\Shinservice1C\Order\Request\LoadOrderForDeliveryRequest;
+use App\Service\Client;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Contracts\HttpClient\ResponseInterface;
+
+class ShinserviceProxyController extends AbstractController
+{
+    /**
+     * @var Client
+     */
+    private $client;
+
+    /**
+     * @param Client $client
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
+
+    public function uploadOrderForDelivery(Request $request): Response
+    {
+        return $this->sendRequest($request, 'UploadOrderForDelivery');
+    }
+
+    public function uploadSalesMark(Request $request): Response
+    {
+        return $this->sendRequest($request, 'UploadSalesMark');
+    }
+
+    public function downloadMarksToOrderForDelivery(Request $request): Response
+    {
+        return $this->sendRequest( $request,'DownloadMarksToOrderForDelivery');
+    }
+
+    public function downloadSalesMark(Request $request): Response
+    {
+        return $this->sendRequest( $request,'DownloadSalesMark');
+    }
+
+    private function sendRequest(Request $request, string $action): Response
+    {
+        $response1C = $this->client->sendProxyRequest(
+            $action,
+            $request->getContent() ?? null,
+            null,
+            ['DocumentNumber' => $request->query->get('DocumentNumber')]
+        );
+        $response = new Response();
+        $response->setContent($response1C->getContent());
+
+        return $response;
+    }
+}

@@ -2,26 +2,148 @@ openapi: 3.0.0
 
 info:
   title: Shinservice API
-  description: Methods PI of Shinservice
+  description: Methods API of Shinservice
   version: 1.0.0
 
 servers:
   - url: http://shinapi.localhost
     description: Localhost develop server
 tags:
+  - name: Proxy
+    description: Прокси
   - name: Order Marks
     description: Данные по заказам
   - name: Sales Marks
     description: Данные по продажам
 
 paths:
+  /UploadOrderForDelivery:
+    get:
+      tags:
+        - "Proxy"
+      summary: "Загрузка заказа по ID"
+      description: "Load order for delivery"
+      operationId: "Load order"
+      parameters:
+        - in: query
+          name: DocumentNumber
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mark'
+        404:
+          $ref: '#/components/schemas/404'
+
+  /DownloadMarksToOrderForDelivery:
+    post:
+      tags:
+        - "Proxy"
+      summary: "Добавление заказа"
+      description: "Add order for delivery"
+      operationId: "Add order"
+      parameters:
+        - in: query
+          name: DocumentNumber
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                 $ref: '#/components/schemas/Mark'
+              required:
+                - DocumentNumber
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mark'
+        404:
+          $ref: '#/components/schemas/404'
+
+  /UploadSalesMark:
+    get:
+      tags:
+        - "Proxy"
+      summary: "Загрузка продажи по ID"
+      description: "Load sales marks"
+      operationId: "Load sales marks"
+      parameters:
+        - in: query
+          name: DocumentNumber
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mark'
+        404:
+          $ref: '#/components/schemas/404'
+
+
+  /DownloadSalesMark:
+    post:
+      tags:
+        - "Proxy"
+      summary: "Добавление продажи"
+      description: "Add sale for delivery"
+      operationId: "Add sale"
+      parameters:
+        - in: query
+          name: DocumentNumber
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Mark'
+              required:
+                - DocumentNumber
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mark'
+        404:
+          $ref: '#/components/schemas/404'
+
+
   /order_for_delivery/{id}:
     get:
       tags:
         - "Order Marks"
-      summary: "Загрузка заказа по ID"
+      summary: "Загрузка заказа по ID (custom)"
       description: "Load order for delivery"
-      operationId: "Load order"
+      operationId: "Load order (custom)"
       parameters:
         - in: path
           name: id
@@ -44,9 +166,9 @@ paths:
     post:
       tags:
         - "Order Marks"
-      summary: "Добавление заказа"
+      summary: "Добавление заказа (custom)"
       description: "Add order for delivery"
-      operationId: "Add order"
+      operationId: "Add order (custom)"
       requestBody:
         content:
           application/json:
@@ -58,7 +180,7 @@ paths:
                   description: данные
                   example: [ 1, 2 ]
               required:
-                - residence
+                - DocumentNumber
       responses:
         200:
           description: OK
@@ -80,7 +202,7 @@ paths:
         - "Sales Marks"
       summary: "Загрузка продажи по ID"
       description: "Load sales marks"
-      operationId: "Load sales marks"
+      operationId: "Load sales marks (custom)"
       parameters:
         - in: path
           name: id
@@ -103,9 +225,9 @@ paths:
     post:
       tags:
         - "Sales Marks"
-      summary: "Добавление заказа"
+      summary: "Добавление продажи"
       description: "Add order for delivery"
-      operationId: "Add order"
+      operationId: "Add order (custom)"
       requestBody:
         content:
           application/json:
@@ -117,7 +239,7 @@ paths:
                   description: данные
                   example: [ 1, 2 ]
               required:
-                - residence
+                - DocumentNumber
       responses:
         200:
           description: OK

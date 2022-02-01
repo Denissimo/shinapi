@@ -1,0 +1,19 @@
+UploadOrderForDelivery.get:
+  path: /UploadOrderForDelivery
+  controller: App\Controller\ShinserviceProxyController::uploadOrderForDelivery
+  methods: [GET]
+
+UploadSalesMark.get:
+  path: /UploadSalesMark
+  controller: App\Controller\ShinserviceProxyController::uploadSalesMark
+  methods: [GET]
+
+DownloadMarksToOrderForDelivery.add:
+  path: /DownloadMarksToOrderForDelivery/
+  controller: App\Controller\ShinserviceProxyController::downloadMarksToOrderForDelivery
+  methods: [POST]
+
+DownloadSalesMark.add:
+  path: /DownloadSalesMark/
+  controller: App\Controller\ShinserviceProxyController::downloadSalesMark
+  methods: [POST]

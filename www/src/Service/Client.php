@@ -36,19 +36,7 @@ class Client
     public function sendJson(string $path, ?string $json, ?string $method, $query = [], $headers = [])
     {
         $fullPath = $this->url . $path;
-        $options = [];
-        
-        if (count((array)$headers)) {
-            $options['headers'] = $headers;
-        }
-
-        if (count((array)$query)) {
-            $options['query'] = $query;
-        }
-
-        if (isset($json)) {
-            $options['json'] = json_decode($json);
-        }
+        $options = $this->buildOptions($json, $query, $headers);
 
         $response = $this->client->request(
             $method ?? 'GET',
@@ -78,5 +66,37 @@ class Client
         }
 
         return json_decode($response->getContent());
+    }
+
+    public function sendProxyRequest(string $path, ?string $json, ?string $method, $query = [], $headers = [])
+    {
+        $fullPath = $this->url . $path;
+        $options = $this->buildOptions($json, $query, $headers);
+
+        return $this->client->request(
+            $method ?? 'GET',
+            $fullPath,
+            $options
+        );
+    }
+
+
+    private function buildOptions(?string $json, $query = [], $headers = []) :array
+    {
+        $options = [];
+
+        if (count((array)$headers)) {
+            $options['headers'] = $headers;
+        }
+
+        if (count((array)$query)) {
+            $options['query'] = $query;
+        }
+
+        if (isset($json)) {
+            $options['json'] = json_decode($json);
+        }
+
+        return $options;
     }
 }

@@ -22,9 +22,6 @@ class LoadSalesMarkHandler extends AbstractHandler
                 ['DocumentNumber' => $request->id]
             );
 
-//            $current = current($ordersForDelivery);
-//            var_dump($current->Марка);
-//            die;
             $loadSalesMarkResponse = array_map(
                 function ($orderForDelivery) {
                     return new LoadSalesMarkResponse($orderForDelivery);

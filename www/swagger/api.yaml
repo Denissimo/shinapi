@@ -119,9 +119,7 @@ paths:
         content:
           application/json:
             schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/Sales'
+              $ref: '#/components/schemas/Sales'
               required:
                 - DocumentNumber
       responses:
@@ -304,6 +302,18 @@ components:
           type: boolean
           description: Только По Переченю Марок
           example: false
+
+    SalesMark:
+      description: Продажа
+      properties:
+        Status:
+          type: boolean
+          description: Статус
+          example: false
+        Result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sales'
 
     400:
       description: Bad request

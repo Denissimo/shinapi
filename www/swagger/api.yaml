@@ -97,7 +97,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Mark'
+                  $ref: '#/components/schemas/Sales'
         404:
           $ref: '#/components/schemas/404'
 
@@ -121,7 +121,7 @@ paths:
             schema:
               type: array
               items:
-                $ref: '#/components/schemas/Mark'
+                $ref: '#/components/schemas/Sales'
               required:
                 - DocumentNumber
       responses:
@@ -271,6 +271,19 @@ components:
           description: Номенклатура
           example: "MICH 285/30 ZR19 Pilot Super Sport ZP (94Y)"
 
+    Goods:
+      description: Товар
+      type: object
+      properties:
+        Номерклатура:
+          type: string
+          description: Номенклатура
+          example: "MICH 285/30 ZR19 Pilot Super Sport ZP (94Y)"
+        Количество:
+          type: integer
+          description: Количество
+          example: 2
+
     Sales:
       description: Продажа
       type: object
@@ -282,11 +295,15 @@ components:
         Товары:
           type: array
           items:
-            $ref: '#/components/schemas/Sales'
+            $ref: '#/components/schemas/Goods'
         Марки:
           type: array
           items:
-            $ref: '#/components/schemas/Sales'
+            $ref: '#/components/schemas/Mark'
+        ТолькоПоПереченюМарок:
+          type: boolean
+          description: Только По Переченю Марок
+          example: false
 
     400:
       description: Bad request

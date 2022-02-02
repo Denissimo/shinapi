@@ -9,11 +9,11 @@ UploadSalesMark.get:
   methods: [GET]
 
 DownloadMarksToOrderForDelivery.add:
-  path: /DownloadMarksToOrderForDelivery/
+  path: /DownloadMarksToOrderForDelivery
   controller: App\Controller\ShinserviceProxyController::downloadMarksToOrderForDelivery
   methods: [POST]
 
 DownloadSalesMark.add:
-  path: /DownloadSalesMark/
+  path: /DownloadSalesMark
   controller: App\Controller\ShinserviceProxyController::downloadSalesMark
   methods: [POST]

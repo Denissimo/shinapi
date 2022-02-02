@@ -54,7 +54,7 @@ class ShinserviceProxyController extends AbstractController
         $response1C = $this->client->sendProxyRequest(
             $action,
             $request->getContent() ?? null,
-            null,
+            $request->getMethod(),
             ['DocumentNumber' => $request->query->get('DocumentNumber')]
         );
         $response = new Response();

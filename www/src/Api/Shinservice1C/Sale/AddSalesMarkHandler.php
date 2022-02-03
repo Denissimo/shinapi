@@ -24,34 +24,6 @@ class AddSalesMarkHandler extends AbstractHandler
     public function handle(AddSalesMarkRequest $request): Response
     {
         try {
-            $head = null;
-            if (isset($request->headId)) {
-                /** @var Individual $head */
-                $head = $this->entityManager->getRepository(Individual::class)
-                    ->find($request->headId);
-                $this->instanceValidator->validateIndividual($request->headId, $head);
-            }
-
-            $orderForDeliveryRequest = $request->orderForDelivery;
-            $orderForDelivery = (new SalesMarkEntity())
-                ->setUser($request->user)
-                ->setHead($head)
-                ->setPhone($orderForDeliveryRequest->phone)
-                ->setEmail($orderForDeliveryRequest->email)
-                ->setOgrn($orderForDeliveryRequest->ogrn)
-                ->setInn($orderForDeliveryRequest->inn)
-                ->setActive($orderForDeliveryRequest->active)
-            ;
-
-            foreach ($request->representative as $representativeId) {
-                $representative = $this->loadIndividual($representativeId);
-                $orderForDelivery->addRepresentative($representative);
-            }
-
-            $this->entityManager->persist($orderForDelivery);
-            //$request->user->addRole(User::ROLE_SalesMark_HEAD);
-            $this->entityManager->flush();
-
             $orderForDeliveryResponse = new AddSalesMarkResponse($orderForDelivery);
 
             $response = new EntityResponse(

@@ -160,45 +160,45 @@ paths:
         404:
           $ref: '#/components/schemas/404'
 
-  /order_for_delivery/add:
-    post:
-      tags:
-        - "Order Marks"
-      summary: "Добавление заказа (custom)"
-      description: "Add order for delivery"
-      operationId: "Add order (custom)"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  type: array
-                  description: данные
-                  example: [ 1, 2 ]
-              required:
-                - DocumentNumber
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  createdAt:
-                    $ref: '#/components/schemas/DateTime'
-        404:
-          $ref: '#/components/schemas/404'
+#  /order_for_delivery/add:
+#    post:
+#      tags:
+#        - "Order Marks"
+#      summary: "Добавление заказа (custom)"
+#      description: "Add order for delivery"
+#      operationId: "Add order (custom)"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                data:
+#                  type: array
+#                  description: данные
+#                  example: [ 1, 2 ]
+#              required:
+#                - DocumentNumber
+#      responses:
+#        200:
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  id:
+#                    type: string
+#                  createdAt:
+#                    $ref: '#/components/schemas/DateTime'
+#        404:
+#          $ref: '#/components/schemas/404'
 
   /sales_mark/{id}:
     get:
       tags:
         - "Sales Marks"
-      summary: "Загрузка продажи по ID"
+      summary: "Загрузка продажи по ID (custom)"
       description: "Load sales marks"
       operationId: "Load sales marks (custom)"
       parameters:
@@ -219,39 +219,39 @@ paths:
         404:
           $ref: '#/components/schemas/404'
 
-  /sales_mark/add:
-    post:
-      tags:
-        - "Sales Marks"
-      summary: "Добавление продажи"
-      description: "Add order for delivery"
-      operationId: "Add order (custom)"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                data:
-                  type: array
-                  description: данные
-                  example: [ 1, 2 ]
-              required:
-                - DocumentNumber
-      responses:
-        200:
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                  createdAt:
-                    $ref: '#/components/schemas/DateTime'
-        404:
-          $ref: '#/components/schemas/404'
+#  /sales_mark/add:
+#    post:
+#      tags:
+#        - "Sales Marks"
+#      summary: "Добавление продажи"
+#      description: "Add order for delivery"
+#      operationId: "Add order (custom)"
+#      requestBody:
+#        content:
+#          application/json:
+#            schema:
+#              type: object
+#              properties:
+#                data:
+#                  type: array
+#                  description: данные
+#                  example: [ 1, 2 ]
+#              required:
+#                - DocumentNumber
+#      responses:
+#        200:
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                type: object
+#                properties:
+#                  id:
+#                    type: string
+#                  createdAt:
+#                    $ref: '#/components/schemas/DateTime'
+#        404:
+#          $ref: '#/components/schemas/404'
 
 components:
   schemas:

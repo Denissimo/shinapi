@@ -3,6 +3,8 @@
 namespace App\Api\Shinservice1C\Sale;
 
 use App\Api\ApiResponse;
+use App\Api\Shinservice1C\Sale\DTO\Goods;
+use App\Api\Shinservice1C\Sale\DTO\Mark;
 use App\Api\Shinservice1C\Sale\Request\LoadSalesMarkRequest;
 use App\Api\Shinservice1C\Sale\Response\LoadSalesMarkResponse;
 use App\Api\Shinservice1C\AbstractHandler;
@@ -15,19 +17,31 @@ class LoadSalesMarkHandler extends AbstractHandler
     public function handle(LoadSalesMarkRequest $request): Response
     {
         try {
-            $ordersForDelivery = (array)$this->client->sendJson(
+            $salesMarks = $this->client->sendJson(
                 'UploadSalesMark',
                 null,
                 null,
                 ['DocumentNumber' => $request->id]
             );
 
-            $loadSalesMarkResponse = array_map(
-                function ($orderForDelivery) {
-                    return new LoadSalesMarkResponse($orderForDelivery);
+            $m = $salesMarks->Марки;
+            $g = $salesMarks->Товары;
+            $isMarks = isset($salesMarks->Марки) && is_array($salesMarks->Марки);
+            $marksList = $isMarks ? array_map(
+                function ($mark) {
+                    return new Mark($mark);
                 },
-                $ordersForDelivery
-            );
+                $salesMarks->Марки
+            ) : [];
+
+            $isGoods = isset($salesMarks->Товары) && is_array($salesMarks->Товары);
+            $goodsList = $isGoods ? array_map(
+                function ($good) {
+                    return new Goods($good);
+                },
+                $salesMarks->Товары
+            ) : [];
+
 
 
             $response = new EntityResponse(

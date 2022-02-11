@@ -2,6 +2,8 @@
 
 namespace App\Api\Shinservice1C\Sale\Response;
 
+use App\Api\Shinservice1C\Sale\DTO\Goods;
+use App\Api\Shinservice1C\Sale\DTO\Mark;
 use stdClass;
 
 class LoadSalesMarkResponse
@@ -9,21 +11,34 @@ class LoadSalesMarkResponse
     /**
      * @var string
      */
-    public $Марка;
+    public $НомерДокументаРасхода;
 
     /**
-     * @var string
+     * @var Goods[]
      */
-    public $Номенклатура;
+    public $Товары;
 
     /**
-     * AddUserDocumentResponse constructor.
-     *
-     * @param stdClass $orderForDelivery
+     * @var Mark[]
      */
-    public function __construct(stdClass $orderForDelivery)
+    public $Марки;
+
+    /**
+     * @var bool
+     */
+    public $ТолькоПоПереченюМарок;
+
+    /**
+     * @param string $НомерДокументаРасхода
+     * @param Goods[] $Товары
+     * @param Mark[] $Марки
+     * @param bool $ТолькоПоПереченюМарок
+     */
+    public function __construct(string $НомерДокументаРасхода, array $Товары, array $Марки, bool $ТолькоПоПереченюМарок)
     {
-        $this->Марка = $orderForDelivery->Марка;
-        $this->Номенклатура = $orderForDelivery->Номенклатура;
+        $this->НомерДокументаРасхода = $НомерДокументаРасхода;
+        $this->Товары = $Товары;
+        $this->Марки = $Марки;
+        $this->ТолькоПоПереченюМарок = $ТолькоПоПереченюМарок;
     }
 }

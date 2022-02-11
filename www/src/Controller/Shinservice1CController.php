@@ -6,6 +6,8 @@ use App\Api\Shinservice1C\Order\LoadOrderForDeliveryHandler;
 use App\Api\Shinservice1C\Order\Request\AddOrderForDeliveryRequest;
 use App\Api\Shinservice1C\Order\AddOrderForDeliveryHandler;
 use App\Api\Shinservice1C\Order\Request\LoadOrderForDeliveryRequest;
+use App\Api\Shinservice1C\Sale\LoadSalesMarkHandler;
+use App\Api\Shinservice1C\Sale\Request\LoadSalesMarkRequest;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,9 +38,9 @@ class Shinservice1CController extends AbstractController
         return $handler->handle($addOrderForDeliveryRequest);
     }
 
-    public function loadSalesMark(Request $request, LoadOrderForDeliveryHandler $handler): Response
+    public function loadSalesMark(Request $request, LoadSalesMarkHandler $handler): Response
     {
-        $loadOrderForDeliveryRequest = new LoadOrderForDeliveryRequest($request);
+        $loadOrderForDeliveryRequest = new LoadSalesMarkRequest($request);
 
         return $handler->handle($loadOrderForDeliveryRequest);
     }

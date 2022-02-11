@@ -1,9 +1,9 @@
 sales_mark.add:
   path: /sales_mark/add
-  controller: App\Controller\Shinservice1CController::addOrderForDelivery
+  controller: App\Controller\Shinservice1CController::addSalesMark
   methods: [POST]
 
 sales_mark.get:
   path: /sales_mark/{id}
-  controller: App\Controller\Shinservice1CController::loadOrderForDelivery
+  controller: App\Controller\Shinservice1CController::loadSalesMark
   methods: [GET]

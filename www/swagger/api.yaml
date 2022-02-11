@@ -264,7 +264,7 @@ components:
           type: string
           description: Марка
           example: "010352870089138621kXREs"
-        Номерклатура:
+        Номенклатура:
           type: string
           description: Номенклатура
           example: "MICH 285/30 ZR19 Pilot Super Sport ZP (94Y)"
@@ -273,7 +273,7 @@ components:
       description: Товар
       type: object
       properties:
-        Номерклатура:
+        Номенклатура:
           type: string
           description: Номенклатура
           example: "MICH 285/30 ZR19 Pilot Super Sport ZP (94Y)"

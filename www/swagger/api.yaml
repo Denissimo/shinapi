@@ -11,10 +11,8 @@ servers:
 tags:
   - name: Proxy
     description: Прокси
-  - name: Order Marks
-    description: Данные по заказам
-  - name: Sales Marks
-    description: Данные по продажам
+  - name: Custom
+    description: Кастомные методы
 
 paths:
   /UploadOrderForDelivery:
@@ -138,7 +136,7 @@ paths:
   /order_for_delivery/{id}:
     get:
       tags:
-        - "Order Marks"
+        - "Custom"
       summary: "Загрузка заказа по ID (custom)"
       description: "Load order for delivery"
       operationId: "Load order (custom)"
@@ -160,11 +158,60 @@ paths:
         404:
           $ref: '#/components/schemas/404'
 
-#  /order_for_delivery/add:
+  /sales_mark/{id}:
+    get:
+      tags:
+        - "Custom"
+      summary: "Загрузка продажи по ID (custom)"
+      description: "Load sales marks"
+      operationId: "Load sales marks (custom)"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sales'
+        404:
+          $ref: '#/components/schemas/404'
+
+  /Soap:
+    post:
+      tags:
+        - "Proxy"
+      summary: "Soap методы"
+      description: "Soap methods"
+      operationId: "Soap methods"
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/SoapEnv'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/xml:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Mark'
+        404:
+          $ref: '#/components/schemas/404'
+
+#  /sales_mark/add:
 #    post:
 #      tags:
-#        - "Order Marks"
-#      summary: "Добавление заказа (custom)"
+#        - "Custom"
+#      summary: "Добавление продажи"
 #      description: "Add order for delivery"
 #      operationId: "Add order (custom)"
 #      requestBody:
@@ -194,36 +241,12 @@ paths:
 #        404:
 #          $ref: '#/components/schemas/404'
 
-  /sales_mark/{id}:
-    get:
-      tags:
-        - "Sales Marks"
-      summary: "Загрузка продажи по ID (custom)"
-      description: "Load sales marks"
-      operationId: "Load sales marks (custom)"
-      parameters:
-        - in: path
-          name: id
-          required: true
-          schema:
-            type: string
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Sales'
-        404:
-          $ref: '#/components/schemas/404'
 
-#  /sales_mark/add:
+#  /order_for_delivery/add:
 #    post:
 #      tags:
-#        - "Sales Marks"
-#      summary: "Добавление продажи"
+#        - "Custom"
+#      summary: "Добавление заказа (custom)"
 #      description: "Add order for delivery"
 #      operationId: "Add order (custom)"
 #      requestBody:
@@ -304,6 +327,18 @@ components:
           example: false
 
     SalesMark:
+      description: Продажа
+      properties:
+        Status:
+          type: boolean
+          description: Статус
+          example: false
+        Result:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sales'
+
+    SoapEnv:
       description: Продажа
       properties:
         Status:

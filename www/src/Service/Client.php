@@ -18,24 +18,30 @@ class Client
     /**
      * @var string
      */
-    protected $url;
+    protected $apiUrl;
+
+    /**
+     * @var string
+     */
+    protected $soapUrl;
 
     /**
      * Client constructor.
      *
      * @param HttpClientInterface $client
      * @param string $apiUrl
+     * @param string $soapUrl
      */
-    public function __construct(HttpClientInterface $client, string $apiUrl)
+    public function __construct(HttpClientInterface $client, string $apiUrl, string $soapUrl)
     {
         $this->client = $client;
-        $this->url = $apiUrl;
+        $this->apiUrl = $apiUrl;
+        $this->soapUrl = $soapUrl;
     }
-
 
     public function sendJson(string $path, ?string $json, ?string $method, $query = [], $headers = [])
     {
-        $fullPath = $this->url . $path;
+        $fullPath = $this->apiUrl . $path;
         $options = $this->buildOptions($json, $query, $headers);
 
         $response = $this->client->request(
@@ -70,7 +76,7 @@ class Client
 
     public function sendProxyRequest(string $path, ?string $json, ?string $method, $query = [], $headers = [])
     {
-        $fullPath = $this->url . $path;
+        $fullPath = $this->apiUrl . $path;
         $options = $this->buildOptions($json, $query, $headers);
 
         return $this->client->request(
@@ -80,6 +86,17 @@ class Client
         );
     }
 
+    public function sendProxyXmlRequest(string $xml, ?string $method, $query = [], $headers = [])
+    {
+        $fullPath = $this->soapUrl;
+        $options = $this->buildXmlOptions($xml, $query, $headers);
+
+        return $this->client->request(
+            $method ?? 'POST',
+            $fullPath,
+            $options
+        );
+    }
 
     private function buildOptions(?string $json, $query = [], $headers = []) :array
     {
@@ -96,6 +113,23 @@ class Client
         if (isset($json)) {
             $options['json'] = json_decode($json);
         }
+
+        return $options;
+    }
+
+    private function buildXmlOptions(string $xml, $query = [], $headers = []) :array
+    {
+        $options = [];
+
+        if (count((array)$headers)) {
+            $options['headers'] = $headers;
+        }
+
+        if (count((array)$query)) {
+            $options['query'] = $query;
+        }
+
+        $options['body'] = $xml;
 
         return $options;
     }

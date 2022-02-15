@@ -17,3 +17,8 @@ DownloadSalesMark.add:
   path: /DownloadSalesMark
   controller: App\Controller\ShinserviceProxyController::downloadSalesMark
   methods: [POST]
+
+Soap.data:
+  path: /Soap
+  controller: App\Controller\ShinserviceProxyController::soap
+  methods: [POST]

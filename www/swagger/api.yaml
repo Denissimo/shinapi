@@ -339,16 +339,58 @@ components:
             $ref: '#/components/schemas/Sales'
 
     SoapEnv:
-      description: Продажа
+      xml:
+        name: Envelope
+        prefix: soap
+        namespace: "http://www.w3.org/2003/05/soap-envelope"
+      description: XML for soap
       properties:
+        Exc:
+          type: string
+          example: 'ExchangeOfSite'
+          xml:
+            attribute: true
+            name: 'xmlns:exc'
+        Header:
+          type: object
+          $ref: '#/components/schemas/SoapHeader'
+        Body:
+          type: object
+          $ref: '#/components/schemas/SoapBody'
+
+    SoapHeader:
+      example: ""
+      xml:
+        name: Header
+        prefix: soap
+        wrapped: false
+
+    SoapBody:
+      xml:
+        name: Body
+        prefix: soap
+      properties:
+        Action:
+          type: object
+          $ref: '#/components/schemas/SoapExec'
+
+    SoapExec:
+      xml:
+        name: SetVOXstatus
+        prefix: exc
+      properties:
+        OrderNumber:
+          xml:
+            name: OrderNumber
+            prefix: exc
+          type: string
+          example: '72649'
         Status:
+          xml:
+            name: Status
+            prefix: exc
           type: boolean
-          description: Статус
-          example: false
-        Result:
-          type: array
-          items:
-            $ref: '#/components/schemas/Sales'
+          example: true
 
     400:
       description: Bad request

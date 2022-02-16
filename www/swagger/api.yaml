@@ -194,16 +194,14 @@ paths:
         content:
           application/xml:
             schema:
-              $ref: '#/components/schemas/SoapEnv'
+              $ref: '#/components/schemas/SoapEnvRequest'
       responses:
         '200':
           description: OK
           content:
             application/xml:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Mark'
+                $ref: '#/components/schemas/SoapEnvResponse'
         404:
           $ref: '#/components/schemas/404'
 
@@ -338,7 +336,7 @@ components:
           items:
             $ref: '#/components/schemas/Sales'
 
-    SoapEnv:
+    SoapEnvRequest:
       xml:
         name: Envelope
         prefix: soap
@@ -356,7 +354,22 @@ components:
           $ref: '#/components/schemas/SoapHeader'
         Body:
           type: object
-          $ref: '#/components/schemas/SoapBody'
+          $ref: '#/components/schemas/SoapBodyRequest'
+
+
+    SoapEnvResponse:
+      xml:
+        name: Envelope
+        prefix: soap
+        namespace: "http://www.w3.org/2003/05/soap-envelope"
+      description: XML for soap
+      properties:
+        Header:
+          type: object
+          $ref: '#/components/schemas/SoapHeader'
+        Body:
+          type: object
+          $ref: '#/components/schemas/SoapBodyResponse'
 
     SoapHeader:
       example: ""
@@ -365,16 +378,25 @@ components:
         prefix: soap
         wrapped: false
 
-    SoapBody:
+    SoapBodyRequest:
       xml:
         name: Body
         prefix: soap
       properties:
         Action:
           type: object
-          $ref: '#/components/schemas/SoapExec'
+          $ref: '#/components/schemas/SoapExecRequest'
 
-    SoapExec:
+    SoapBodyResponse:
+      xml:
+        name: Body
+        prefix: soap
+      properties:
+        Action:
+          type: object
+          $ref: '#/components/schemas/SoapExecResponse'
+
+    SoapExecRequest:
       xml:
         name: SetVOXstatus
         prefix: exc
@@ -391,6 +413,33 @@ components:
             prefix: exc
           type: boolean
           example: true
+
+    SoapExecResponse:
+      xml:
+        name: SetVOXstatusResponse
+        prefix: m
+      properties:
+        Result:
+          type: object
+          $ref: '#/components/schemas/Result'
+
+    Result:
+      xml:
+        name: return
+        prefix: m
+      properties:
+        Xs:
+          type: string
+          example: 'http://www.w3.org/2001/XMLSchema'
+          xml:
+            attribute: true
+            name: 'xmlns:xs'
+        Xsi:
+          type: string
+          example: 'http://www.w3.org/2001/XMLSchema-instance'
+          xml:
+            attribute: true
+            name: 'xmlns:xsi'
 
     400:
       description: Bad request

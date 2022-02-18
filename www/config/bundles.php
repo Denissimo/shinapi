@@ -10,5 +10,5 @@ return [
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
     Symfony\Bundle\SecurityBundle\SecurityBundle::class => ['all' => true],
     Twig\Extra\TwigExtraBundle\TwigExtraBundle::class => ['all' => true],
-    HarmBandstra\SwaggerUiBundle\HBSwaggerUiBundle::class => ['dev' => true],
+    HarmBandstra\SwaggerUiBundle\HBSwaggerUiBundle::class => ['all' => true],
 ];

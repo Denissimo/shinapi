@@ -1,0 +1,47 @@
+openapi: 3.0.0
+
+info:
+  title: Shinservice API
+  description: Methods API of Shinservice
+  version: 1.0.0
+
+servers:
+  - url: http://shinapi.localhost
+    description: Localhost develop server
+tags:
+  - name: Test
+    description: Тест
+
+paths:
+  /test:
+    get:
+      tags:
+        - "Test"
+      summary: "Тест"
+      description: "Test"
+      operationId: "Test"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/200'
+        404:
+          $ref: '#/components/schemas/404'
+
+components:
+  schemas:
+
+    200:
+      description: OK
+      type: string
+      example: OK
+    400:
+      description: Bad request
+      type: string
+      example: Invalid parameter
+    404:
+      description: Not found response
+      type: string
+      example: Not found

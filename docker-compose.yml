@@ -1,6 +1,11 @@
 # Версия docker-compose
 version: '2'
 # Список наших сервисов (контейнеров)
+
+networks:
+  backend:
+    external: true
+
 services:
   nginx:
     container_name: shinapi_nginx
@@ -9,7 +14,7 @@ services:
     image: nginx:latest
     # маршрутизируем порты
     ports:
-      - "80:80"
+      - "8080:8080"
       - "443:443"
     # монтируем директории, слева директории на основной машине, справа - куда они монтируются в контейнере
     volumes:
@@ -21,6 +26,10 @@ services:
       PHP_INI_SCAN_DIR: "/usr/local/etc/php/custom.d:/usr/local/etc/php/conf.d"
     links:
       - php
+    networks:
+      backend:
+         aliases:
+           - shinapi.localhost
   php:
     container_name: shinapi_php
     # у нас свой образ для PHP, указываем путь к нему и говорим что его надо собрать
@@ -29,3 +38,7 @@ services:
     volumes:
       - ./www:/var/www
       - ./images/php/:/usr/local/etc/php/conf.d/
+    networks:
+      backend:
+        aliases:
+          - shinapi.php

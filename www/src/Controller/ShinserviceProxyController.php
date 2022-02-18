@@ -6,6 +6,8 @@ use App\Service\Client;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Monolog\Logger;
+use Monolog\Handler\StreamHandler;
 
 class ShinserviceProxyController extends AbstractController
 {
@@ -20,6 +22,13 @@ class ShinserviceProxyController extends AbstractController
     public function __construct(Client $client)
     {
         $this->client = $client;
+        $this->logger = new Logger('soap_log');
+        $this->logger->pushHandler(
+            new StreamHandler(
+                __DIR__ . '/../../var/log/soap_log.log',
+                Logger::DEBUG
+            )
+        );
     }
 
     public function uploadOrderForDelivery(Request $request): Response
@@ -68,6 +77,13 @@ class ShinserviceProxyController extends AbstractController
         $response1C = $this->client->sendProxyXmlRequest(
             $request->getContent() ?? null,
             $request->getMethod()
+        );
+
+        $this->logger->debug('Run soap',
+            [
+                'content' => $request->getContent(),
+                'response' => $response1C->getContent(),
+            ]
         );
 
         $response = new Response();

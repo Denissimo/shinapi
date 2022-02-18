@@ -2659,11 +2659,11 @@
                 <wsi:Claim xmlns:wsi="http://ws-i.org/schemas/conformanceClaim/"
                            conformsTo="http://ws-i.org/profiles/basic/1.1"/>
             </documentation>
-            <soapbind:address location="http://shinapi.localhost:8080/Soap"/>
+            <soapbind:address location="{{ proxy_url }}"/>
         </port>
         <port name="ExchangeOfSiteSoap12"
               binding="tns:ExchangeOfSiteSoap12Binding">
-            <soap12bind:address location="http://shinapi.localhost:8080/Soap"/>
+            <soap12bind:address location="{{ proxy_url }}"/>
         </port>
     </service>
 </definitions>

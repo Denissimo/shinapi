@@ -7,12 +7,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class CommonController extends AbstractController
 {
-    public function buildWSDL(string $soapUrl): Response
+    public function buildWSDL(string $proxyUrl): Response
     {
         $response =  $this->render(
             'wsdl.1C.html.twig',
             [
-                'soap_url' => $soapUrl
+                'proxy_url' => $proxyUrl
             ]
         );
 

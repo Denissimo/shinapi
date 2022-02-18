@@ -66,7 +66,6 @@ class ShinserviceProxyController extends AbstractController
             ['DocumentNumber' => $request->query->get('DocumentNumber')]
         );
         $response = new Response();
-        $content = $response1C->getContent();
         $response->setContent($response1C->getContent());
 
         return $response;

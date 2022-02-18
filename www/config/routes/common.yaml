@@ -1,0 +1,4 @@
+wsdl.get:
+  path: /soap.wsdl
+  controller: App\Controller\CommonController::buildWSDL
+  methods: [GET]
